@@ -19,7 +19,7 @@ def ffmpeg(src_path, dst_path):
     :param dst_path: 输出文件路径
     :return: bool值，转换结果成功or失败
     """
-    command = "ffmpeg -i '{}' -vn -ar 44100 -ac 2 -ab 32k -f mp3 '{}'".format(src_path, dst_path)
+    command = "ffmpeg -i '{}' -vn -ar 44100 -ac 2 -ab 96k -f mp3 '{}'".format(src_path, dst_path)
     try:
         subprocess.check_call(command, shell=True)
         is_success = True
@@ -94,7 +94,7 @@ def parse_arg():
     parser.add_argument(u"--traverse", action=u'store_true',
                         help=u"(可选)src-path为目录是，是否遍历子目录，默认False")
 
-    return parser.parse_args()
+    return parser.parse_known_args()
 
 
 def main():
@@ -108,7 +108,7 @@ def main():
         return
 
     # 解析输入参数
-    command_param = parse_arg()
+    command_param,unkown = parse_arg()
     file_path = command_param.file_path
     output_dir = command_param.output_dir
 
